@@ -1,0 +1,15 @@
+server:
+    port: 8081
+    tomcat:
+      threads:
+          max: 400
+spring:
+    redis:
+        host: localhost
+        port: 6379
+        database: 0
+rocketmq:
+    name-server: localhost:9876
+    producer:
+        access-key: rocketmq2
+        secret-key: 12345678
