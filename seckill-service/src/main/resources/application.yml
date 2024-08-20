@@ -10,6 +10,7 @@ spring:
         host: localhost
         port: 6379
         database: 0
+
 rocketmq:
     name-server: localhost:9876
     consumer:
