@@ -67,7 +67,7 @@ public class GoodsServiceImpl implements GoodsService {
         int i = goodsMapper.updateStock(goodsId);
         if (i > 0) {
             OrderRecords order = new OrderRecords();
-            order.setId(goodsId);
+            order.setGoodsId(goodsId);
             order.setUserId(userId);
             order.setCreateTime(new Date());
             orderRecordsMapper.insert(order);

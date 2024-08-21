@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @RestController
 public class SeckillController {
 
@@ -17,6 +19,9 @@ public class SeckillController {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
+    //CAS java无锁的   原子性 安全的
+    AtomicInteger userIdAt = new AtomicInteger(0);
+
     /**
      * 秒杀接口
      * 1.用户去重
@@ -24,11 +29,11 @@ public class SeckillController {
      * 3.消息放入MQ
      *
      * @param goodsId 商品id
-     * @param userId  用户id（实际可以在登录信息中获取）
      * @return
      */
     @GetMapping("seckill")
-    public String doSecKill(Integer goodsId, Integer userId) {
+    public String doSecKill(Integer goodsId/*, Integer userId*/) {
+        int userId = userIdAt.incrementAndGet();
         // 1.用户去重
         // uk uniqueKey = [yyyyMMdd] + userId + goodsId
         String uk = userId + "-" + goodsId;

@@ -114,9 +114,9 @@
 
     <update id="updateStock">
         update goods
-        set total_stocks = total_stocks - 1,
+        set stocks = stocks - 1,
             update_time  = now()
-        where goods_id = #{value}
-          and total_stocks - 1 >= 0
+        where id = #{value}
+          and stocks - 1 >= 0
     </update>
 </mapper>
