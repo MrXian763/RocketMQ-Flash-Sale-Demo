@@ -13,3 +13,4 @@ rocketmq:
     producer:
         access-key: rocketmq2
         secret-key: 12345678
+        group: seckill-producer-group
