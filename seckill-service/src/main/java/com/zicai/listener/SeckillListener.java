@@ -25,16 +25,29 @@ public class SeckillListener implements RocketMQListener<MessageExt> {
      *
      * @param message
      */
+//    @Override
+//    public void onMessage(MessageExt message) {
+//        String msg = new String(message.getBody());
+//        // userId + "-" + goodsId
+//        Integer userId = Integer.parseInt(msg.split("-")[0]);
+//        Integer goodsId = Integer.parseInt(msg.split("-")[1]);
+//        synchronized (this) { // 方案一，在事务外面加锁可以解决并发问题
+//            goodsService.realSeckill(userId, goodsId);
+//        }
+//    }
+
+    /**
+     * 方案二 分布式锁 MySQL行锁 Redis锁
+     * @param message
+     */
     @Override
     public void onMessage(MessageExt message) {
         String msg = new String(message.getBody());
         // userId + "-" + goodsId
         Integer userId = Integer.parseInt(msg.split("-")[0]);
         Integer goodsId = Integer.parseInt(msg.split("-")[1]);
-        synchronized (this) { // 方案一，在事务外面加锁可以解决并发问题
+        synchronized (this) {
             goodsService.realSeckill(userId, goodsId);
         }
     }
-
-
 }

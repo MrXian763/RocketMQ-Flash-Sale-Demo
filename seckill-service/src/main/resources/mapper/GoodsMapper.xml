@@ -5,27 +5,28 @@
 <mapper namespace="com.zicai.mapper.GoodsMapper">
 
     <resultMap id="BaseResultMap" type="com.zicai.domain.Goods">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
-            <result property="price" column="price" jdbcType="DECIMAL"/>
-            <result property="stocks" column="stocks" jdbcType="INTEGER"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="pic" column="pic" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="stocks" column="stocks" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,goods_name,price,
+        id
+        ,goods_name,price,
         stocks,status,pic,
         create_time,update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from goods
-        where  id = #{id,jdbcType=INTEGER} 
+        where id = #{id,jdbcType=INTEGER}
     </select>
 
     <select id="selectSeckillGoods" resultType="com.zicai.domain.Goods">
@@ -35,78 +36,87 @@
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from goods
-        where  id = #{id,jdbcType=INTEGER} 
+        delete
+        from goods
+        where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zicai.domain.Goods" useGeneratedKeys="true">
         insert into goods
-        ( id,goods_name,price
-        ,stocks,status,pic
-        ,create_time,update_time)
-        values (#{id,jdbcType=INTEGER},#{goodsName,jdbcType=VARCHAR},#{price,jdbcType=DECIMAL}
-        ,#{stocks,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{pic,jdbcType=VARCHAR}
-        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+        ( id, goods_name, price
+        , stocks, status, pic
+        , create_time, update_time)
+        values ( #{id,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}
+               , #{stocks,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}
+               , #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zicai.domain.Goods" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zicai.domain.Goods"
+            useGeneratedKeys="true">
         insert into goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="goodsName != null">goods_name,</if>
-                <if test="price != null">price,</if>
-                <if test="stocks != null">stocks,</if>
-                <if test="status != null">status,</if>
-                <if test="pic != null">pic,</if>
-                <if test="createTime != null">create_time,</if>
-                <if test="updateTime != null">update_time,</if>
+            <if test="id != null">id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="price != null">price,</if>
+            <if test="stocks != null">stocks,</if>
+            <if test="status != null">status,</if>
+            <if test="pic != null">pic,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id,jdbcType=INTEGER},</if>
-                <if test="goodsName != null">#{goodsName,jdbcType=VARCHAR},</if>
-                <if test="price != null">#{price,jdbcType=DECIMAL},</if>
-                <if test="stocks != null">#{stocks,jdbcType=INTEGER},</if>
-                <if test="status != null">#{status,jdbcType=INTEGER},</if>
-                <if test="pic != null">#{pic,jdbcType=VARCHAR},</if>
-                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
-                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="goodsName != null">#{goodsName,jdbcType=VARCHAR},</if>
+            <if test="price != null">#{price,jdbcType=DECIMAL},</if>
+            <if test="stocks != null">#{stocks,jdbcType=INTEGER},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="pic != null">#{pic,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zicai.domain.Goods">
         update goods
         <set>
-                <if test="goodsName != null">
-                    goods_name = #{goodsName,jdbcType=VARCHAR},
-                </if>
-                <if test="price != null">
-                    price = #{price,jdbcType=DECIMAL},
-                </if>
-                <if test="stocks != null">
-                    stocks = #{stocks,jdbcType=INTEGER},
-                </if>
-                <if test="status != null">
-                    status = #{status,jdbcType=INTEGER},
-                </if>
-                <if test="pic != null">
-                    pic = #{pic,jdbcType=VARCHAR},
-                </if>
-                <if test="createTime != null">
-                    create_time = #{createTime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="updateTime != null">
-                    update_time = #{updateTime,jdbcType=TIMESTAMP},
-                </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="stocks != null">
+                stocks = #{stocks,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="pic != null">
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
-        where   id = #{id,jdbcType=INTEGER} 
+        where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.zicai.domain.Goods">
         update goods
-        set 
-            goods_name =  #{goodsName,jdbcType=VARCHAR},
-            price =  #{price,jdbcType=DECIMAL},
-            stocks =  #{stocks,jdbcType=INTEGER},
-            status =  #{status,jdbcType=INTEGER},
-            pic =  #{pic,jdbcType=VARCHAR},
-            create_time =  #{createTime,jdbcType=TIMESTAMP},
-            update_time =  #{updateTime,jdbcType=TIMESTAMP}
-        where   id = #{id,jdbcType=INTEGER} 
+        set goods_name  = #{goodsName,jdbcType=VARCHAR},
+            price       = #{price,jdbcType=DECIMAL},
+            stocks      = #{stocks,jdbcType=INTEGER},
+            status      = #{status,jdbcType=INTEGER},
+            pic         = #{pic,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStock">
+        update goods
+        set total_stocks = total_stocks - 1,
+            update_time  = now()
+        where goods_id = #{value}
+          and total_stocks - 1 >= 0
     </update>
 </mapper>

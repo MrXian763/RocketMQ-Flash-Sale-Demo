@@ -27,4 +27,6 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
 
     List<Goods> selectSeckillGoods();
+
+    int updateStock(Integer goodsId);
 }
